@@ -39,4 +39,6 @@ $result = $conn->query($sql);
      $data["Message"] = "No Doctor's Found"
 }
 
+encode json_encode($data);
+
 ?>
