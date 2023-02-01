@@ -1,30 +1,33 @@
 <?php
 
-$search_Field = $_POST["Field"];
+$search_param = $_POST["search"];
 $search_area = $_POST["area"];
 
 // Connect to Database 
 
 $host = "localhost";
-$dbname = "hackveda_doctor";
-$dbpass = " ";
+$dbuser = "id20229334_user_db";
+$dbpass = "FYrO%8o3W2DI=~0m";
+$dbname = "id20229334_hackveda_doctor";
 
 
-$conn = new mysqli($host , $dbname, $dbpass );
+$conn = new mysqli($host, $dbuser, $dbpass, $dbname);
 
-$sql = " SELECT * FROM `doctors` WHERE DoctorArea like '%.search_area.%' and DoctorField like '%.$search_Field.%';"
+$sql = "SELECT * FROM `doctors` WHERE doctorarea like '%".$search_area."%' and doctorinformation like  '".$search_param."%'";
 
 $result = $conn->query($sql);
 
- if($result-> nums_rows > 0){
+ if($result->num_rows > 0){
 
  	while($row = $result-> fetch_assoc()){
  		$doctorid = $row["ID"];
  		$doctorname = $row["DoctorName"];
- 		$doctorinfo = $row["DoctorInformation"];
- 		$doctorimage = $row["DoctorImage"];
+ 		$doctorinfo = $row["Doctorinformation"];
+ 		$doctorimage = $row["Doctorarea"];
+        $doctorfield = $row["Doctorimage"];
 
-       $doctor_data["DocName"]= $doctorname
+
+       $doctor_data["DocName"]= $doctorname;
        $doctor_data["DocInfo"] = $docinfo;
        $doctor_data["DocImage"] = $doctorimage;
 
@@ -36,9 +39,9 @@ $result = $conn->query($sql);
 
 }else{
      $data["Result"] = "False"; 
-     $data["Message"] = "No Doctor's Found"
+     $data["Message"] = "No Doctor's Found";
 }
 
-encode json_encode($data);
+echo json_encode($data);
 
 ?>
