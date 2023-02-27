@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>doc</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+
+<body>
+    <input type="text" name="doc_type" id="field" /><br />
+    <input type="text" name="doc_area" id="area" /><br />
+    <input id="search_btn" type="submit" value="Search" /><br />
+    <div id="searchsection"></div>
+    <script>
+        $(document).ready(function () {
+            $("#search_btn").click(function () {
+                var doctor_type = $("#field").val();
+                var doctor_area = $("#area").val();
+
+                $.ajax({
+                    url: "webserivce1.php",
+                    type: "POST",
+                    data: { search: doctor_type, area: doctor_area },
+                    success: function (response) {
+                        $("#searchsection").html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    },
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
